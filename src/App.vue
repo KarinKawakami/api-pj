@@ -1,19 +1,30 @@
 <template>
   <div id="app">
-    <Header />
+    <input type="text" v-model="zipCode" placeholder="000-0000" />
+    <input type="text" v-model="address">
+    <button @click="autoCompleteAddress(zipCode)">住所自動入力</button>
     <router-view />
-  </div>
 </template>
 
 <script>
-import Header from "./components/Header";
-export default {
-  components: {
-    Header
+data() {
+  return {
+    zipCode: '',
+    address: '',
   }
-};
+},
+methods: {
+  autoCompleteAddress(zipCode){
+    this.axios.get(`https://api.zipaddress.net/?zipcode=${zipcode}`)
+    then.((response)=>{
+      this.address = response.data.fullAddress
+    })
+    .catch(() => {
+      this.address = ''
+    })
+  }
+}
 </script>
-
 <style>
 html, body, div, span, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
