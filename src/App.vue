@@ -36,10 +36,10 @@ export default{
       .then((response)=>{
         console.log(response); //住所の取り出しを行う
         // こちらの教材の（https://coachtech-lms.com/javascript/javascript-object/2718/）
-        this.address = response.data.fullAddress;
+        this.address = response.data[0].allAddress;
       })
       .catch(() => {
-        this.address = 'response.data[0].allAddress'
+        this.address = ''
       });
     }
   }
