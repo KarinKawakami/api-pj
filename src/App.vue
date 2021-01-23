@@ -1,27 +1,47 @@
 <template>
   <div id="app">
     <input type="text" v-model="zipCode" placeholder="000-0000" />
-    <input type="text" v-model="address">
+    <!-- <input type="text" v-model="address"> 削除-->
     <button @click="autoCompleteAddress(zipCode)">住所自動入力</button>
-    <router-view />
+    <!-- <button @click="autoCompleteAddress(zipCode)">住所自動入力</button> 引数削除 -->
+    <!-- <router-view /> 削除 -->
+    <p>住所：{{address}}</p>
+    <!-- 閉じタグ追加 -->
+  </div>
 </template>
 
 <script>
-data() {
-  return {
-    zipCode: '',
-    address: '',
-  }
-},
-methods: {
-  autoCompleteAddress(zipCode){
-    this.axios.get(`https://api.zipaddress.net/?zipcode=${zipcode}`)
-    then.((response)=>{
-      this.address = response.data.fullAddress
-    })
-    .catch(() => {
-      this.address = ''
-    })
+import axios from 'axios';
+export default{
+  data() {
+    return {
+      zipCode: '',
+      address: '',
+    }
+  },
+  methods: {
+    // autoCompleteAddress(zipCode){
+    //   this.axios.get(`https://api.zipaddress.net/?zipcode=${zipcode}`) //this.axios -> axios
+    //   then.((response)=>{ //then.() -> .then()
+    //     this.address = response.data.fullAddress
+    //   })
+    //   .catch(() => {
+    //     this.address = ''
+    //   })
+    // }
+    autoCompleteAddress(zipcode){
+      console.log(zipcode);
+      // axios.get(`エンドポイントURL/postcodes/${zipcode}?クエリパラメータ(apiKey)=値`) となります
+      axios.get(`https://apis.postcodes-jp.com/api/v4/postcodes/${zipcode}?(apiKey)=Dc4zzV1p2WjbFgiHlzYoIsXHYYsu0dSU4wSliG6`)
+      .then((response)=>{
+        console.log(response); //住所の取り出しを行う
+        // こちらの教材の（https://coachtech-lms.com/javascript/javascript-object/2718/）
+        this.address = response.data.fullAddress;
+      })
+      .catch(() => {
+        this.address = ''
+      });
+    }
   }
 }
 </script>
