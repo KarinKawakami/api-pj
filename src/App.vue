@@ -32,7 +32,7 @@ export default{
     autoCompleteAddress(zipcode){
       console.log(zipcode);
       // axios.get(`エンドポイントURL/postcodes/${zipcode}?クエリパラメータ(apiKey)=値`) となります
-      axios.get(`https://api.postcodes-jp.com/api/v4/postcodes/${zipcode}?1000001 -G -v(apiKey)=Dc4zzV1p2WjbFgiHlzYoIsXHYYsu0dSU4wSliG6`)
+      axios.get('https://api.postcode-jp.com/api/v4/postcodes/${zipcode}?apiKey=Dc4zzV1p2WjbFgiHlzYoIsXHYYsu0dSU4wSliG6')
       .then((response)=>{
         console.log(response); //住所の取り出しを行う
         // こちらの教材の（https://coachtech-lms.com/javascript/javascript-object/2718/）
